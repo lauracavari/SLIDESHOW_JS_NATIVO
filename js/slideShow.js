@@ -24,10 +24,9 @@ showSlide(slideIndex);
 
 //Creamos el bucle para asociar a cada punto un evento click y que se llama
 // a la funcion curretDotSlide()
-
 for (let j = 0; j< arrDots.length; j++){
     arrDots[j].addEventListener("click", function(){
-        console.log("Click en " + j);
+        currentDotsSlide(j);
     })
 
 }
