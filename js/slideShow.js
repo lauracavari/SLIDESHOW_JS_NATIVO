@@ -15,12 +15,15 @@
 // Inicializamos un indice o un contador y el slide que 
 // se debe mostrar de primeras. 
 let slideIndex = 1;
+let Autoslide;
 
 
 // Seleccionamos todos los puntos y punto lo asociamos en un evento de click
 let arrDots = document.querySelectorAll(".dot")
 
 showSlide(slideIndex);
+
+startAutoSlide();
 
 //Creamos el bucle para asociar a cada punto un evento click y que se llama
 // a la funcion curretDotSlide()
@@ -52,13 +55,15 @@ function currentDotsSlide(dotIndex){
  let prevSlideArrow = document.querySelector(".prev"); 
 
  nextSlideArrow.addEventListener("click", function() {
-    console.log("next")
+    stopAutoSlide();
     nextPrevSlide(1);
+    stopAutoSlide();
  });
 
  prevSlideArrow.addEventListener("click", function() {
-    console.log("prev")
+    stopAutoSlide();
     nextPrevSlide(-1);
+    stopAutoSlide();
  });
 
  /**
@@ -113,4 +118,22 @@ function currentDotsSlide(dotIndex){
     arrSlides[slideIndex - 1].style.display = "block";
     arrDots[slideIndex - 1].className += " active";
   }
-    
+
+    // Automatizamos la llamada a la función nextPrevSlide() usando la función
+    // built-in serInterval(). En la llamada a NextPrevSlide() le pasamos como 
+    // parámetro el valor de 1
+    //Iniciamos el funcionamiento automático de Slideshow llamado a una función propia
+
+    function startAutoSlide(){
+        Autoslide = setInterval(function(){
+            nextPrevSlide(1)
+        }, 2000);
+    }
+
+    // Detiene el funcionamiento automático del Slideshow
+    //La función built-In de clearInterval() me permite detener un setInterval()
+    //creado previamente. Para esto, el intervalo debe estar guardado en una variable
+
+    function stopAutoSlide(){
+        clearInterval(Autoslide);
+    }
